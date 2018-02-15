@@ -1,0 +1,43 @@
+---
+- name: Configure ldap client
+  template:
+    src: ldap.conf
+    dest: "{{ ldap_client_config_file }}"
+
+- name: Create config directory
+  file:
+    state: directory
+    path: "{{ ldap_client_cacertdir }}"
+
+- name: Configure nsswitch passwd
+  lineinfile:
+    state: present
+    path: /etc/nsswitch.conf
+    regexp: '^passwd:'
+    line: 'passwd:         compat ldap'
+  notify: Restart nscd
+
+- name: Configure nsswitch group
+  lineinfile:
+    state: present
+    path: /etc/nsswitch.conf
+    regexp: '^group:'
+    line: 'group:         compat ldap'
+  notify: Restart nscd
+
+- name: Configure nsswitch shadow
+  lineinfile:
+    state: present
+    path: /etc/nsswitch.conf
+    regexp: '^shadow:'
+    line: 'shadow:         compat ldap'
+  notify: Restart nscd
+
+- name: Configure user home dir creation
+  lineinfile:
+    state: present
+    path: '/etc/pam.d/common-session'
+    line: 'session required        pam_mkhomedir.so skel=/etc/skel umask={{ ldap_client_default_user_umask }}'
+    regexp: '^session required'
+  when: ldap_client_create_user_home_on_login
+  notify: Restart nscd

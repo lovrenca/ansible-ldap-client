@@ -1,0 +1,8 @@
+---
+ldap_client_packages:
+  - ldap-auth-client
+  - smbldap-tools
+  - libnss-ldap
+  - libpam-ldap
+  - ldap-utils
+  - nscd

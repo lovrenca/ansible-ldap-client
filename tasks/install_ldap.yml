@@ -1,0 +1,13 @@
+---
+- name: Install ldap packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ldap_client_packages }}"
+
+- name: Install ldap optional packages
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ ldap_client_optional_packages|default(omit) }}"
+  when: ldap_client_optional_packages is defined

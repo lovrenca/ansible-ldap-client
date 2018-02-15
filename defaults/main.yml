@@ -1,0 +1,11 @@
+---
+
+ldap_client_host: example.com
+ldap_client_dn: "dc=example,dc=com"
+ldap_client_version: 3
+ldap_client_port: 636
+ldap_client_ssl: on
+ldap_client_cacertdir: /opt/certs
+ldap_client_config_file: /etc/ldap.conf
+ldap_client_create_user_home_on_login: false
+ldap_client_default_user_umask: "077"
