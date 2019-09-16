@@ -9,3 +9,4 @@ ldap_client_cacertdir: /opt/certs
 ldap_client_config_file: /etc/ldap.conf
 ldap_client_create_user_home_on_login: false
 ldap_client_default_user_umask: "077"
+ldap_client_login_attriibute: uid
